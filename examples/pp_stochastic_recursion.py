@@ -25,7 +25,7 @@ from edward.models import Bernoulli
 
 
 def geometric(p):
-    x = tf.squeeze(Bernoulli(p=p))
+    x = tf.squeeze(Bernoulli(p))
     cond = tf.equal(x, tf.constant(1))
 
     def fn1():

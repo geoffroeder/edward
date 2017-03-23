@@ -52,18 +52,18 @@ student_ids = data['student_id'].values.astype(int)
 question_ids = data['question_id'].values.astype(int)
 
 # MODEL
-lnvar_students = Normal(mu=tf.zeros(1), sigma=tf.ones(1))
-lnvar_questions = Normal(mu=tf.zeros(1), sigma=tf.ones(1))
+lnvar_students = Normal(loc=tf.zeros(1), scale=tf.ones(1))
+lnvar_questions = Normal(loc=tf.zeros(1), scale=tf.ones(1))
 
 sigma_students = tf.sqrt(tf.exp(lnvar_students))
 sigma_questions = tf.sqrt(tf.exp(lnvar_questions))
 
-overall_mu = Normal(mu=tf.zeros(1), sigma=tf.ones(1))
+overall_mu = Normal(loc=tf.zeros(1), scale=tf.ones(1))
 
-student_etas = Normal(mu=tf.zeros(n_students),
-                      sigma=sigma_students * tf.ones(n_students))
-question_etas = Normal(mu=tf.zeros(n_questions),
-                       sigma=sigma_questions * tf.ones(n_questions))
+student_etas = Normal(loc=tf.zeros(n_students),
+                      scale=sigma_students * tf.ones(n_students))
+question_etas = Normal(loc=tf.zeros(n_questions),
+                       scale=sigma_questions * tf.ones(n_questions))
 
 observation_logodds = tf.gather(student_etas, student_ids) + \
     tf.gather(question_etas, question_ids) + \
@@ -74,8 +74,8 @@ outcomes = Bernoulli(logits=observation_logodds)
 # INFERENCE
 def make_normal(n):
   var = Normal(
-      mu=tf.Variable(tf.random_normal([n])),
-      sigma=tf.nn.softplus(tf.Variable(tf.random_normal([n]))))
+      loc=tf.Variable(tf.random_normal([n])),
+      scale=tf.nn.softplus(tf.Variable(tf.random_normal([n]))))
   return var
 
 
