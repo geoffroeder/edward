@@ -372,10 +372,10 @@ def get_ancestors(x, collection=None):
 
   Examples
   --------
-  >>> a = Normal(mu=0.0, sigma=1.0)
-  >>> b = Normal(mu=a, sigma=1.0)
-  >>> c = Normal(mu=0.0, sigma=1.0)
-  >>> d = Normal(mu=tf.mul(b, c), sigma=1.0)
+  >>> a = Normal(loc=0.0, scale=1.0)
+  >>> b = Normal(loc=a, scale=1.0)
+  >>> c = Normal(loc=0.0, scale=1.0)
+  >>> d = Normal(loc=tf.mul(b, c), scale=1.0)
   >>> set(ed.get_ancestors(d)) == set([a, b, c])
   True
   """
@@ -425,10 +425,10 @@ def get_children(x, collection=None):
 
   Examples
   --------
-  >>> a = Normal(mu=0.0, sigma=1.0)
-  >>> b = Normal(mu=a, sigma=1.0)
-  >>> c = Normal(mu=a, sigma=1.0)
-  >>> d = Normal(mu=c, sigma=1.0)
+  >>> a = Normal(loc=0.0, scale=1.0)
+  >>> b = Normal(loc=a, scale=1.0)
+  >>> c = Normal(loc=a, scale=1.0)
+  >>> d = Normal(loc=c, scale=1.0)
   >>> set(ed.get_children(a)) == set([b, c])
   True
   """
@@ -479,10 +479,10 @@ def get_descendants(x, collection=None):
 
   Examples
   --------
-  >>> a = Normal(mu=0.0, sigma=1.0)
-  >>> b = Normal(mu=a, sigma=1.0)
-  >>> c = Normal(mu=a, sigma=1.0)
-  >>> d = Normal(mu=c, sigma=1.0)
+  >>> a = Normal(loc=0.0, scale=1.0)
+  >>> b = Normal(loc=a, scale=1.0)
+  >>> c = Normal(loc=a, scale=1.0)
+  >>> d = Normal(loc=c, scale=1.0)
   >>> set(ed.get_descendants(a)) == set([b, c, d])
   True
   """
@@ -533,10 +533,10 @@ def get_parents(x, collection=None):
 
   Examples
   --------
-  >>> a = Normal(mu=0.0, sigma=1.0)
-  >>> b = Normal(mu=a, sigma=1.0)
-  >>> c = Normal(mu=0.0, sigma=1.0)
-  >>> d = Normal(mu=tf.mul(b, c), sigma=1.0)
+  >>> a = Normal(loc=0.0, scale=1.0)
+  >>> b = Normal(loc=a, scale=1.0)
+  >>> c = Normal(loc=0.0, scale=1.0)
+  >>> d = Normal(loc=tf.mul(b, c), scale=1.0)
   >>> set(ed.get_parents(d)) == set([b, c])
   True
   """
@@ -586,9 +586,9 @@ def get_siblings(x, collection=None):
 
   Examples
   --------
-  >>> a = Normal(mu=0.0, sigma=1.0)
-  >>> b = Normal(mu=a, sigma=1.0)
-  >>> c = Normal(mu=a, sigma=1.0)
+  >>> a = Normal(loc=0.0, scale=1.0)
+  >>> b = Normal(loc=a, scale=1.0)
+  >>> c = Normal(loc=a, scale=1.0)
   >>> ed.get_siblings(b) == [c]
   True
   """
@@ -621,7 +621,7 @@ def get_variables(x, collection=None):
   --------
   >>> a = tf.Variable(0.0)
   >>> b = tf.Variable(0.0)
-  >>> c = Normal(mu=tf.mul(a, b), sigma=1.0)
+  >>> c = Normal(loc=tf.mul(a, b), scale=1.0)
   >>> set(ed.get_variables(c)) == set([a, b])
   True
   """
